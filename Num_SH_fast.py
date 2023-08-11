@@ -8,7 +8,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 from Emma3 import sterile_production, create_full_filename
 from classy import Class
-from Francisco import N_sh
+from Francisco import N_sh, gstar
+#from run_three_nu import gss, temp
 import numba as nb
 import os
 
@@ -255,11 +256,19 @@ LambdaCDM_settings = {
     'ncdm_fluid_approximation':3,
     'background_verbose':0
 }
+
+#index = np.where(temp < 1/2000)[0][-1]
+
+#x0 = temp[index]
+#gss_i = gstar(x0, gss[index,:])
+#a = (gss_i)**(1/3)
+a = 0.51
+
 ncdm_settings = {          
           'N_ncdm':1,
           'use_ncdm_psd_files': 0,
           'm_ncdm': 7100,
-          'T_ncdm':0.716*0.51,
+          'T_ncdm':0.716*a,
           'ncdm_maximum_q':20
 }
 
