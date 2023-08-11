@@ -4,7 +4,7 @@ import time
 import Num_SH_fast as NSH
 import os
 
-Run_index = 5
+Run_index = 0
 folder = ["New-ThreeEqual", "New-E_Mu", "New-Tau", "New-Mu"]
 file_header = ["three_equal", "mostly_emu", "mostly_tau", "mostly_mu"]
 
