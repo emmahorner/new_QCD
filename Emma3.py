@@ -3,8 +3,8 @@ import numba as nb
 import os
 import matplotlib.pyplot as plt
 from Francisco import gstar
-from run_three_nu import g, temp, gs, gss
-from run_three_nu import with_spline_ODE, steps_taken
+import run_three_nu
+#from run_three_nu import with_spline_ODE, steps_taken
 
 
 G_F = 1.1663787e-5*(1/1000**2)
@@ -104,26 +104,26 @@ def anti_dfdt(x, y, p, mixangle_vacuum, scattering_constant, L, r):
 def e_density(mass_s, eps, fe, anti_fe):
     m_pc = 1.22e22
     T_cmb = 2.369e-10
-    index = np.where(temp < 1/2000)[0][-1]
-    x0 = temp[index]
-    gss_i = gstar(x0, gss[index,:])
+    index = np.where(run_three_nu.temp < 1/2000)[0][-1]
+    x0 = run_three_nu.temp[index]
+    gss_i = gstar(x0, run_three_nu.gss[index,:])
     T_cm03 = (10.75/gss_i)*(4/11)*T_cmb**3
     c = 8*np.pi/(3*m_pc**2)*((1/2.13e-39)**2)*mass_s/(2*np.pi**2)*T_cm03
     oh2 = c*(trapezoid(eps, fe) + trapezoid(eps, anti_fe))
     return oh2
 
 def sterile_production(N, mass_s, mixangv_e, mixangv_mu, mixangv_tau, Le0, Lmu0, Ltau0, make_plot=True, folder_name="", file_prefix = "three_nu"): 
-    index = np.where(temp < 1/2000)[0][-1]
-    index2 = np.where(temp < 1/10)[0][-1]
-    x0 = temp[index]
+    index = np.where(run_three_nu.temp < 1/2000)[0][-1]
+    index2 = np.where(run_three_nu.temp < 1/10)[0][-1]
+    x0 = run_three_nu.temp[index]
     f_initial = np.zeros(N)
     f_anti_intial = np.zeros(N)
     y_0 = np.zeros(2*N+5)
     p = np.zeros(N+18)
     
-    x0 = temp[index] 
+    x0 = run_three_nu.temp[index] 
     dx0 = x0 / 1000
-    xf = temp[index + 1]
+    xf = run_three_nu.temp[index + 1]
     
     mixangv_tot = mixangv_e + mixangv_mu + mixangv_tau
     
@@ -132,12 +132,12 @@ def sterile_production(N, mass_s, mixangv_e, mixangv_mu, mixangv_tau, Le0, Lmu0,
     y_0[-5:] = [Ltau0, Lmu0, Le0, 0, x0]
     p[:N] = np.linspace(10/N, 20, N)
     p[-5:] = [Ltau0, Lmu0, Le0, mixangv_tot, mass_s]
-    p[-10:-5] = gs[index, :]
-    p[-15:-10] = gss[index, :]
+    p[-10:-5] = run_three_nu.gs[index, :]
+    p[-15:-10] = run_three_nu.gss[index, :]
     p[-16] = mixangv_e
     p[-17] = mixangv_mu
     p[-18] = mixangv_tau
-    x, y, dx, s = steps_taken(x0, y_0, dx0, p, xf, index, index2)
+    x, y, dx, s = run_three_nu.steps_taken(x0, y_0, dx0, p, xf, index, index2)
     
     fn = create_full_filename(folder_name, file_prefix, Le0, Lmu0, Ltau0, mixangv_e, mixangv_mu, mixangv_tau)
     
