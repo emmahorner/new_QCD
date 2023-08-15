@@ -49,7 +49,7 @@ def rho(m, g, T, integrand):
     return np.sum(rho_vals)
 
 @nb.jit(nopython=True)
-def density(T, mass_gf, mass_gb):
+def energy_density(T, mass_gf, mass_gb):
     density_val_f = 0 
     density_val_b = 0 
     for massf, gf in mass_gf:
@@ -92,7 +92,7 @@ def pressure(T, mass_gf, mass_gb):
     return p_vals_f + p_vals_b
 
 @nb.jit(nopython=True)
-def entropy(T, mass_gf, mass_gb):
+def entropy_density(T, mass_gf, mass_gb):
     S = (1/T)*(density(T, mass_gf, mass_gb) + pressure(T, mass_gf, mass_gb))
     return S
     
