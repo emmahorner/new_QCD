@@ -60,7 +60,7 @@ def energy_density(T, mass_gf, mass_gb):
 
 @nb.jit(nopython=True)
 def gstar(T, mass_gf, mass_gb):
-    return 30/np.pi**2*density(T, mass_gf, mass_gb)/T**4
+    return 30/np.pi**2*energy_density(T, mass_gf, mass_gb)/T**4
 
 
 
@@ -93,9 +93,9 @@ def pressure(T, mass_gf, mass_gb):
 
 @nb.jit(nopython=True)
 def entropy_density(T, mass_gf, mass_gb):
-    S = (1/T)*(density(T, mass_gf, mass_gb) + pressure(T, mass_gf, mass_gb))
+    S = (1/T)*(energy_density(T, mass_gf, mass_gb) + pressure(T, mass_gf, mass_gb))
     return S
     
 @nb.jit(nopython=True)    
 def gstarS(T, mass_gf, mass_gb):
-    return 45/(2*np.pi**2)*entropy(T, mass_gf, mass_gb)/T**3
+    return 45/(2*np.pi**2)*entropy_density(T, mass_gf, mass_gb)/T**3
