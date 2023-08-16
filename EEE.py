@@ -1,4 +1,7 @@
 import RRR
+import importlib
+
+importlib.reload(RRR)
 
 def print_A():
     print(RRR.A)
