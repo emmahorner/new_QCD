@@ -49,7 +49,7 @@ def rho(m, g, T, integrand):
     return np.sum(rho_vals)
 
 @nb.jit(nopython=True)
-def density(T, mass_gf, mass_gb):
+def energy_density(T, mass_gf, mass_gb):
     density_val_f = 0 
     density_val_b = 0 
     for massf, gf in mass_gf:
@@ -60,7 +60,7 @@ def density(T, mass_gf, mass_gb):
 
 @nb.jit(nopython=True)
 def gstar(T, mass_gf, mass_gb):
-    return 30/np.pi**2*density(T, mass_gf, mass_gb)/T**4
+    return 30/np.pi**2*energy_density(T, mass_gf, mass_gb)/T**4
 
 
 
@@ -92,10 +92,10 @@ def pressure(T, mass_gf, mass_gb):
     return p_vals_f + p_vals_b
 
 @nb.jit(nopython=True)
-def entropy(T, mass_gf, mass_gb):
-    S = (1/T)*(density(T, mass_gf, mass_gb) + pressure(T, mass_gf, mass_gb))
+def entropy_density(T, mass_gf, mass_gb):
+    S = (1/T)*(energy_density(T, mass_gf, mass_gb) + pressure(T, mass_gf, mass_gb))
     return S
     
 @nb.jit(nopython=True)    
 def gstarS(T, mass_gf, mass_gb):
-    return 45/(2*np.pi**2)*entropy(T, mass_gf, mass_gb)/T**3
+    return 45/(2*np.pi**2)*entropy_density(T, mass_gf, mass_gb)/T**3
