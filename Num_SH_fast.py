@@ -9,7 +9,7 @@ import numpy as np
 from Emma3 import sterile_production, create_full_filename
 from classy import Class
 from Francisco import N_sh, gstar
-#from run_three_nu import gss, temp
+import run_three_nu 
 import numba as nb
 import os
 
@@ -257,12 +257,12 @@ LambdaCDM_settings = {
     'background_verbose':0
 }
 
-#index = np.where(temp < 1/2000)[0][-1]
 
-#x0 = temp[index]
-#gss_i = gstar(x0, gss[index,:])
-#a = (gss_i)**(1/3)
-a = 0.51
+#generalizing T_ncdm
+index = np.where(run_three_nu.temp < 1/2000)[0][-1]
+x0 = run_three_nu.temp[index]
+gss_i = gstar(x0, run_three_nu.gss[index,:])
+a = (10.75/gss_i)**(1/3)
 
 ncdm_settings = {          
           'N_ncdm':1,
