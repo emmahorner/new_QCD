@@ -4,6 +4,7 @@ import os
 import matplotlib.pyplot as plt
 from Francisco import gstar
 import run_three_nu
+
 #from run_three_nu import with_spline_ODE, steps_taken
 
 
@@ -107,7 +108,7 @@ def e_density(mass_s, eps, fe, anti_fe):
     index = np.where(run_three_nu.temp < 1/2000)[0][-1]
     x0 = run_three_nu.temp[index]
     gss_i = gstar(x0, run_three_nu.gss[index,:])
-    T_cm03 = (10.75/gss_i)*(4/11)*T_cmb**3
+    T_cm03 = run_three_nu.a*(4/11)*T_cmb**3
     c = 8*np.pi/(3*m_pc**2)*((1/2.13e-39)**2)*mass_s/(2*np.pi**2)*T_cm03
     oh2 = c*(trapezoid(eps, fe) + trapezoid(eps, anti_fe))
     return oh2

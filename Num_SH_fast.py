@@ -258,17 +258,11 @@ LambdaCDM_settings = {
 }
 
 
-#generalizing T_ncdm
-index = np.where(run_three_nu.temp < 1/2000)[0][-1]
-x0 = run_three_nu.temp[index]
-gss_i = gstar(x0, run_three_nu.gss[index,:])
-a = (10.75/gss_i)**(1/3)
-
 ncdm_settings = {          
           'N_ncdm':1,
           'use_ncdm_psd_files': 0,
           'm_ncdm': 7100,
-          'T_ncdm':0.716*a,
+          'T_ncdm':0.716*run_three_nu.a**(1/3),
           'ncdm_maximum_q':20
 }
 
