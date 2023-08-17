@@ -4,8 +4,10 @@ import os
 import matplotlib.pyplot as plt
 from Francisco import gstar
 import run_three_nu
+import importlib
 
-#from run_three_nu import with_spline_ODE, steps_taken
+importlib.reload(run_three_nu)
+print("import Emma3")
 
 
 G_F = 1.1663787e-5*(1/1000**2)

@@ -6,12 +6,18 @@
 
 import matplotlib.pyplot as plt
 import numpy as np
+import Emma3
 from Emma3 import sterile_production, create_full_filename
 from classy import Class
 from Francisco import N_sh, gstar
 import run_three_nu 
 import numba as nb
 import os
+import importlib
+
+importlib.reload(run_three_nu)
+importlib.reload(Emma3)
+
 
 @nb.jit(nopython=True)
 def cdf_faster(e,f):
