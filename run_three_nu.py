@@ -16,6 +16,13 @@ temp = g['T']
 gs = g['g_star']
 gss = g['g_star_s']
 
+
+#for T_ncdm in N and e_den in E
+index = np.where(temp < 1/2000)[0][-1]
+x0 = temp[index]
+gss_i = gstar(x0, gss[index,:])
+a = (10.75/gss_i)
+
 @nb.jit(nopython = True)
 def with_spline_ODE(x0, y_0, dx0, p, xf): 
     end, x, y, dx = solve.ODEsolver(x0, y_0, dx0, p, 10000, 100, xf) 
