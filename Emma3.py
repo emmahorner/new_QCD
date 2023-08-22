@@ -167,7 +167,8 @@ def sterile_production(N, mass_s, mixangv_e, mixangv_mu, mixangv_tau, Le0, Lmu0,
                  mixangv_e = p[-16],
                  mixangv_mu = p[-17],
                  mixangv_tau = p[-18],
-                 omega_h2 = e_density(p[-1], p[:N], p[:N]**2*y[-1,:N], p[:N]**2*y[-1,N:2*N]))
+                 omega_h2 = e_density(p[-1], p[:N], p[:N]**2*y[-1,:N], p[:N]**2*y[-1,N:2*N]), 
+                 total_entropy = s)
 
     if make_plot:
         plt.figure()
