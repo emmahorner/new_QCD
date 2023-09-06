@@ -6,7 +6,7 @@ import Emma3
 import os
 import sys
 
-diagnostic = True
+diagnostic = False
 
 Num_args = len(sys.argv) - 1
 
@@ -37,7 +37,7 @@ if Num_args >= 3:
         equal_char = arg.find("=")
         if equal_char == -1:
             error = True
-            print("ERROR: usage m=#,#,# OR l=#,#,# OR r=T/F or f=T/F(no spaces)")
+            print("ERROR: usage m=#,#,# OR l=#,#,# OR r=T/F or s=T/F or d=T/F(no spaces)")
             break
 
         if arg[0] == 'm':
@@ -64,9 +64,13 @@ if Num_args >= 3:
             if arg[equal_char+1] == 't' or arg[equal_char+1] == 'T':
                 run_all = True
                 
-        if arg[0] == 'f':
+        if arg[0] == 's':
             if arg[equal_char+1] == 't' or arg[equal_char+1] == 'T':
                 spectra_only = True
+                
+        if arg[0] == 'd':
+            if arg[equal_char+1] == 't' or arg[equal_char+1] == 'T':
+                diagnostic = True
 
 if os.path.exists("{}/{}-results.npz".format(folder, file_header)):
     print("Summary file {}/{}-results.npz already exists. Do not overwrite. Abort.".format(folder, file_header))
@@ -81,11 +85,6 @@ if error:
                 
 mix_factor /= np.sum(mix_factor)
 
-print("Data files written in {}/{}".format(folder, file_header))
-print("Mixing angles: ", mix_factor)
-print("Lepton numbers: ", lep_factor)
-if run_all:
-    print("Spectra and P(k) run again.")
 
 def parallel_equal(mix,lep):
     mix_e, mix_mu, mix_tau = mix_factor * mix
@@ -103,7 +102,13 @@ def parallel_equal(mix,lep):
 
 
 if __name__ == '__main__':
-    
+
+    print("Data files written in {}/{}".format(folder, file_header))
+    print("Mixing angles: ", mix_factor)
+    print("Lepton numbers: ", lep_factor)
+    if run_all:
+        print("Spectra and P(k) run again.")
+
     mixang = np.linspace( 1e-10, 3e-9, 30)
     lep0 = np.linspace(0e-3, 6e-3, 31)     
     run_list = []
@@ -124,6 +129,6 @@ if __name__ == '__main__':
 
 
     if not diagnostic:
-        np.savez("{}/{}-results".format(folder[Run_index], file_header[Run_index]), results = res, mixangle = mixang, L0 = lep0, index = new_list)
+        np.savez("{}/{}-results".format(folder, file_header), results = res, mixangle = mixang, L0 = lep0, index = new_list)
     else:
-        print("***Change variable diagnostic to False in parallel_run.py to run code***")
+        print("***Run code by turning off diagnostic with argument: d=F ***")
