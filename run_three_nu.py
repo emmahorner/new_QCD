@@ -16,9 +16,9 @@ temp = g['T']
 gs = g['g_star']
 gss = g['g_star_s']
 
-blah = np.load("blah_data.npz")
+#blah = np.load("blah_data.npz")
 
-print("Opening data file in RRR, index={}".format(blah['i']))
+#print("Opening data file in RRR, index={}".format(blah['i']))
 
 #for T_ncdm in N and e_den in E
 index = np.where(temp < 1/2000)[0][-1]
