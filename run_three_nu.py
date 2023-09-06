@@ -16,6 +16,7 @@ temp = g['T']
 gs = g['g_star']
 gss = g['g_star_s']
 
+
 #for T_ncdm in N and e_den in E
 index = np.where(temp < 1/2000)[0][-1]
 x0 = temp[index]
