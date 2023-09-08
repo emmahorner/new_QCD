@@ -4,7 +4,7 @@ import os
 import matplotlib as mpl
 
 omegacdm_measured = 0.1188
-Nsh_min = 60
+Nsh_constraint = 60
 
 lev=[30,60,90,120]
 
@@ -43,7 +43,7 @@ def contourplot(L0, mixangle, f, NSH, NSH_contours, save_fig, save_fn, title):
 
     plt.show()
 
-def scatter(L0, mixangle, f, NSH, save_fig, save_fn, title):
+def scatter(L0, mixangle, f, NSH, save_fig, save_fn, title, Nsh_min = Nsh_constraint):
     plt.figure()
     for i in range(len(mixangle)):
         for j in range(len(L0)):
@@ -67,7 +67,7 @@ def scatter(L0, mixangle, f, NSH, save_fig, save_fn, title):
         print("Image saved {}".format(image_name))
     plt.show()        
 
-def mixscatter(L0, mixangle, f, NSH, mx_astro, save_fig, save_fn, title):
+def mixscatter(L0, mixangle, f, NSH, mx_astro, save_fig, save_fn, title, Nsh_min = Nsh_constraint):
     plt.figure()
     
     norm = mpl.colors.Normalize(vmin=60,vmax=160)
@@ -200,23 +200,23 @@ class MSNDM_model:
             
         contourplot(self.L0, self.mixangle, self.f, self.NSH, NSH_contours, save_fig, save_fn, title)
     
-    def make_scatter(self, save_fig = False, save_fn = "",title=""):
+    def make_scatter(self, save_fig = False, save_fn = "",title="", Nsh_min = Nsh_constraint):
         if save_fn == "":
             save_fn = '{}/{}-contour'.format(self.folder, self.filename)
         if self.nofile:
             print("No data file for this model exists. Abort.")
             return
     
-        scatter(self.L0, self.mixangle, self.f, self.NSH, save_fig, save_fn, title)
+        scatter(self.L0, self.mixangle, self.f, self.NSH, save_fig, save_fn, title, Nsh_min)
         
-    def make_mixscatter(self, save_fig = False, save_fn = "",title=""):
+    def make_mixscatter(self, save_fig = False, save_fn = "",title="", Nsh_min = Nsh_constraint):
         if save_fn == "":
             save_fn = '{}/{}-contour'.format(self.folder, self.filename)
         if self.nofile:
             print("No data file for this model exists. Abort.")
             return
     
-        mixscatter(self.L0, self.mixangle, self.f, self.NSH, self.mx_astro, save_fig, save_fn, title)
+        mixscatter(self.L0, self.mixangle, self.f, self.NSH, self.mx_astro, save_fig, save_fn, title, Nsh_min)
         
     def plot_catalog_f(self, f_min, f_max):
         if self.nofile:
