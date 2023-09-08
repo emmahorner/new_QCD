@@ -7,7 +7,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import Emma3
-from Emma3 import sterile_production, create_full_filename
 from classy import Class
 from Francisco import N_sh, gstar
 import run_three_nu 
@@ -365,18 +364,18 @@ def solve(mixangv_e, mixangv_mu, mixangv_tau, Le0, Lmu0, Ltau0, folder_name, fil
 
     omega_sh2 = -1
     if not run_sp_again:
-        fn = create_full_filename(folder_name, file_prefix, Le0, Lmu0, Ltau0, mixangv_e, mixangv_mu, mixangv_tau) +".npz"
+        fn = Emma3.create_full_filename(folder_name, file_prefix, Le0, Lmu0, Ltau0, mixangv_e, mixangv_mu, mixangv_tau) +".npz"
         if os.path.exists(fn):
             npz = np.load(fn, allow_pickle=True)
             omega_sh2 = npz['omega_h2'].item()
             
     if omega_sh2 == -1:
-        omega_sh2 = sterile_production(N, mass_s, mixangv_e, mixangv_mu, mixangv_tau, Le0, Lmu0, Ltau0, make_plot=make_plot, folder_name=folder_name, file_prefix=file_prefix)
+        omega_sh2 = Emma3.sterile_production(N, mass_s, mixangv_e, mixangv_mu, mixangv_tau, Le0, Lmu0, Ltau0, make_plot=make_plot, folder_name=folder_name, file_prefix=file_prefix)
     
     if omega_sh2 > measured_omegacdm:
         return omega_sh2, np.nan
     else:
-        fn = create_full_filename(folder_name, file_prefix, Le0, Lmu0, Ltau0, mixangv_e, mixangv_mu, mixangv_tau) +".npz"
+        fn = Emma3.create_full_filename(folder_name, file_prefix, Le0, Lmu0, Ltau0, mixangv_e, mixangv_mu, mixangv_tau) +".npz"
         
         try:
             return omega_sh2, num_subhalos(fn, make_plots=make_plot, run_again=run_pk_again)
