@@ -8,6 +8,9 @@ import numpy as np
 import numba as nb 
 from Francisco import dadx, dtda
 import Emma3 as emma
+import importlib
+
+importlib.reload(Emma3)
 
 
 # ## derivatives
@@ -35,10 +38,6 @@ def f(x, y, p):
     n_photon = 2*riemannzeta3/(2*np.pi**2)*T**3
     
     mixangv_tot = p[-2]
-   
-    scatterconst_e = 1.27
-    scatterconst_mu = 1.27
-    scatterconst_tau = 0.92
     
     L_e = 2*y[-3] + y[-4] +y[-5]
     L_mu = 2*y[-4] + y[-3] +y[-5]
@@ -53,22 +52,22 @@ def f(x, y, p):
         dfdt_e = np.zeros(int(N))
         anti_dfdt_e = np.zeros(int(N))
     else: 
-        dfdt_e = emma.dfdt(x, y, p, p[-16], scatterconst_e, L_e, r_e)
-        anti_dfdt_e = emma.anti_dfdt(x, y, p, p[-16], scatterconst_e, L_e, r_e)
+        dfdt_e = emma.dfdt(x, y, p, p[-16], emma.scatterconst_e, L_e, r_e)
+        anti_dfdt_e = emma.anti_dfdt(x, y, p, p[-16], emma.scatterconst_e, L_e, r_e)
         
     if p[-17] == 0:
         dfdt_mu = np.zeros(int(N))
         anti_dfdt_mu = np.zeros(int(N))
     else: 
-        dfdt_mu = emma.dfdt(x, y, p, p[-17], scatterconst_mu, L_mu, r_mu)
-        anti_dfdt_mu = emma.anti_dfdt(x, y, p, p[-17], scatterconst_mu, L_mu, r_mu)
+        dfdt_mu = emma.dfdt(x, y, p, p[-17], emma.scatterconst_mu, L_mu, r_mu)
+        anti_dfdt_mu = emma.anti_dfdt(x, y, p, p[-17], emma.scatterconst_mu, L_mu, r_mu)
         
     if p[-18] == 0:
         dfdt_tau = np.zeros(int(N))
         anti_dfdt_tau = np.zeros(int(N))
     else:
-        dfdt_tau = emma.dfdt(x, y, p, p[-18], scatterconst_tau, L_tau, r_tau)
-        anti_dfdt_tau = emma.anti_dfdt(x, y, p, p[-18], scatterconst_tau, L_tau, r_tau)
+        dfdt_tau = emma.dfdt(x, y, p, p[-18], emma.scatterconst_tau, L_tau, r_tau)
+        anti_dfdt_tau = emma.anti_dfdt(x, y, p, p[-18], emma.scatterconst_tau, L_tau, r_tau)
     
     
     der[:N] = (dfdt_e + dfdt_mu + dfdt_tau)*der[-2] ##this is dfdx after chain rule
