@@ -10,8 +10,16 @@ from Francisco import gstar
 import numba as nb
 
 # In[2]:
-g = np.load("Relativistic_Degrees_of_Freedom.npz")
 
+
+#right now each of these are just numbers but depending on how e mu and tau are defined I can save a list of numbers for each... can do it this way: e = [1.27, 1.28, 1.29] mu = [1.27, 1.28, 1.29] .......
+
+gamma = np.load("Scatter_Rate_Constants.npz") 
+sctr_e = gamma['e']
+sctr_mu = gamma['mu']
+sctr_t = gamma ['tau']
+
+g = np.load("Relativistic_Degrees_of_Freedom.npz")
 temp = g['T']
 gs = g['g_star']
 gss = g['g_star_s']
