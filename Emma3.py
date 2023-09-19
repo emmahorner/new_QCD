@@ -9,6 +9,9 @@ import importlib
 importlib.reload(run_three_nu)
 print("import Emma3")
 
+scatterconst_e = run_three_nu.sctr_e
+scatterconst_mu = run_three_nu.sctr_m
+scatterconst_tau = run_three_nu.sctr_t
 
 G_F = 1.1663787e-5*(1/1000**2)
 m_pc = 1.22e22
