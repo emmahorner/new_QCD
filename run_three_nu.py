@@ -16,7 +16,7 @@ import numba as nb
 
 gamma = np.load("Scatter_Rate_Constants.npz") 
 sctr_e = gamma['e']
-sctr_mu = gamma['mu']
+sctr_m = gamma['mu']
 sctr_t = gamma ['tau']
 
 g = np.load("Relativistic_Degrees_of_Freedom.npz")

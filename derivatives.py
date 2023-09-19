@@ -10,7 +10,7 @@ from Francisco import dadx, dtda
 import Emma3 as emma
 import importlib
 
-importlib.reload(Emma3)
+importlib.reload(emma)
 
 
 # ## derivatives
