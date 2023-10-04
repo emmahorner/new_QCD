@@ -110,7 +110,9 @@ if __name__ == '__main__':
         print("Spectra and P(k) run again.")
 
     mixang = np.linspace( 1e-10, 3e-9, 30)
-    lep0 = np.linspace(0e-3, 6e-3, 31)     
+#    mixang = np.linspace( 1e-10, 1.9e-9, 10)
+    lep0 = np.linspace(0e-3, 6e-3, 31)   
+#    lep0 = np.linspace(0e-3, 6e-3, 11)
     run_list = []
     new_list = []
     for i in range(len(mixang)):

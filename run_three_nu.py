@@ -8,6 +8,9 @@ import numpy as np
 import ODEsolver_three_nu as solve
 from Francisco import gstar
 import numba as nb
+import ODEsolver_three_nu
+import importlib
+
 
 # In[2]:
 
@@ -19,14 +22,21 @@ sctr_e = gamma['e']
 sctr_m = gamma['mu']
 sctr_t = gamma ['tau']
 
+print(sctr_e, sctr_m, sctr_t)
+
 g = np.load("Relativistic_Degrees_of_Freedom.npz")
 temp = g['T']
 gs = g['g_star']
 gss = g['g_star_s']
 
+importlib.reload(ODEsolver_three_nu)
+
+
+T_initial = 2000
+
 
 #for T_ncdm in N and e_den in E
-index = np.where(temp < 1/2000)[0][-1]
+index = np.where(temp < 1/T_initial)[0][-1]
 x0 = temp[index]
 gss_i = gstar(x0, gss[index,:])
 a = (10.75/gss_i)

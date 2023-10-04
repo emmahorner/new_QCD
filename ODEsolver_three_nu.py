@@ -6,7 +6,12 @@
 
 import numpy as np
 import numba as nb
-from derivatives import f
+#from derivatives import f
+import derivatives
+import importlib
+
+importlib.reload(derivatives)
+f = derivatives.f
 
 
 # In[2]:
