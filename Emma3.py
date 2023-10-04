@@ -110,7 +110,7 @@ def anti_dfdt(x, y, p, mixangle_vacuum, scattering_constant, L, r):
 def e_density(mass_s, eps, fe, anti_fe):
     m_pc = 1.22e22
     T_cmb = 2.369e-10
-    index = np.where(run_three_nu.temp < 1/2000)[0][-1]
+    index = np.where(run_three_nu.temp < 1/run_three_nu.T_initial)[0][-1]
     x0 = run_three_nu.temp[index]
     gss_i = gstar(x0, run_three_nu.gss[index,:])
     T_cm03 = run_three_nu.a*(4/11)*T_cmb**3
@@ -119,7 +119,7 @@ def e_density(mass_s, eps, fe, anti_fe):
     return oh2
 
 def sterile_production(N, mass_s, mixangv_e, mixangv_mu, mixangv_tau, Le0, Lmu0, Ltau0, make_plot=True, folder_name="", file_prefix = "three_nu"): 
-    index = np.where(run_three_nu.temp < 1/2000)[0][-1]
+    index = np.where(run_three_nu.temp < 1/run_three_nu.T_initial)[0][-1]
     index2 = np.where(run_three_nu.temp < 1/10)[0][-1]
     x0 = run_three_nu.temp[index]
     f_initial = np.zeros(N)
@@ -171,7 +171,8 @@ def sterile_production(N, mass_s, mixangv_e, mixangv_mu, mixangv_tau, Le0, Lmu0,
                  mixangv_mu = p[-17],
                  mixangv_tau = p[-18],
                  omega_h2 = e_density(p[-1], p[:N], p[:N]**2*y[-1,:N], p[:N]**2*y[-1,N:2*N]), 
-                 total_entropy = s)
+                 total_entropy = s,
+                 scatter_rate = np.array([scatterconst_e, scatterconst_mu, scatterconst_tau]))
 
     if make_plot:
         plt.figure()
