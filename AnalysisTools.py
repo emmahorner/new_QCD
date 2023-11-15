@@ -106,7 +106,7 @@ def mixscatter(L0, mixangle, f, NSH, mx_astro, save_fig, save_fn, title, Nsh_min
     if title != "":
         plt.title(title)
     if save_fig:
-        plt.savefig(save_fn + ".pdf")
+        plt.savefig(save_fn + ".pdf", bbox_inches='tight')
         image_format = 'png'
         image_name = save_fn + ".png"
 
